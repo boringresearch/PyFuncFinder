@@ -7,12 +7,15 @@ def find_function_definition_str(folder_path: str, function_name: str) -> str:
                 lines = f.readlines()
                 inside_function = False
                 function_lines = []
+                indentation = 0
                 for line in lines:
-                    if line.strip().startswith(f"def {function_name}("):
+                    stripped_line = line.strip()
+                    if stripped_line.startswith(f"def {function_name}("):
                         inside_function = True
+                        indentation = len(line) - len(stripped_line)
                     if inside_function:
                         function_lines.append(line.rstrip())  # Remove only trailing whitespace
-                    if inside_function and line.strip() == "":
+                    if inside_function and (len(line) - len(stripped_line)) < indentation and stripped_line:
                         break
                 if function_lines:
                     return "\\n".join(function_lines)
