@@ -1,5 +1,3 @@
-# Refactored version of find_function_definition_str
-
 def read_file_lines(file_path: str) -> list:
     """Reads a file and returns its lines as a list."""
     try:
@@ -33,6 +31,7 @@ def find_function_in_lines(lines: list, function_name: str) -> str:
 
 def find_function_definition_str(folder_path: str, function_name: str) -> str:
     """Searches for the definition of a function in Python files within a given folder."""
+    import os
     for root, dirs, files in os.walk(folder_path):
         for file in files:
             if file.endswith('.py'):
