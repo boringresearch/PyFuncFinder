@@ -8,15 +8,14 @@ def find_function_definition_str(folder_path: str, function_name: str) -> str:
                 inside_function = False
                 function_lines = []
                 for line in lines:
-                    line = line.strip()
-                    if line.startswith(f"def {function_name}("):
+                    if line.strip().startswith(f"def {function_name}("):
                         inside_function = True
                     if inside_function:
-                        function_lines.append(line)
-                    if inside_function and line == "":
+                        function_lines.append(line.rstrip())  # Remove only trailing whitespace
+                    if inside_function and line.strip() == "":
                         break
                 if function_lines:
-                    return "\n".join(function_lines)
+                    return "\\n".join(function_lines)
         except Exception as e:
             return None
 
